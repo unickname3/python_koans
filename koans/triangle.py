@@ -18,7 +18,10 @@
 #   about_triangle_project_2.py
 #
 def triangle(a, b, c):
-    # DELETE 'PASS' AND WRITE THIS CODE
+    if min(a, b, c) <= 0:
+        raise TriangleError
+    if max(a, b, c) > sum((a, b, c)) / 2:
+        raise TriangleError
     answer = {1: "equilateral", 2: "isosceles", 3: "scalene"}
     sides_count = len(set([a, b, c]))
     return answer.get(sides_count, None)
