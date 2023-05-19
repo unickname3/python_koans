@@ -3,6 +3,7 @@
 
 # Triangle Project Code.
 
+
 # Triangle analyzes the lengths of the sides of a triangle
 # (represented by a, b and c) and returns the type of triangle.
 #
@@ -18,7 +19,10 @@
 #
 def triangle(a, b, c):
     # DELETE 'PASS' AND WRITE THIS CODE
-    pass
+    answer = {1: "equilateral", 2: "isosceles", 3: "scalene"}
+    sides_count = len(set([a, b, c]))
+    return answer.get(sides_count, None)
+
 
 # Error class used in part 2.  No need to change this code.
 class TriangleError(Exception):
