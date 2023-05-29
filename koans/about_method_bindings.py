@@ -3,30 +3,34 @@
 
 from runner.koan import *
 
+
 def function():
     return "pineapple"
 
+
 def function2():
     return "tractor"
+
 
 class Class:
     def method(self):
         return "parrot"
 
+
 class AboutMethodBindings(Koan):
     def test_methods_are_bound_to_an_object(self):
         obj = Class()
-        self.assertEqual(__, obj.method.__self__ == obj)
+        self.assertEqual(True, obj.method.__self__ == obj)
 
     def test_methods_are_also_bound_to_a_function(self):
         obj = Class()
-        self.assertEqual(__, obj.method())
-        self.assertEqual(__, obj.method.__func__(obj))
+        self.assertEqual("parrot", obj.method())
+        self.assertEqual("parrot", obj.method.__func__(obj))
 
     def test_functions_have_attributes(self):
         obj = Class()
-        self.assertEqual(__, len(dir(function)))
-        self.assertEqual(__, dir(function) == dir(obj.method.__func__))
+        self.assertEqual(2, len(dir(function)))
+        self.assertEqual(True, dir(function) == dir(obj.method.__func__))
 
     def test_methods_have_different_attributes(self):
         obj = Class()
@@ -38,7 +42,8 @@ class AboutMethodBindings(Koan):
 
     def test_setting_attributes_on_a_bound_method_directly(self):
         obj = Class()
-        with self.assertRaises(___): obj.method.cherries = 3
+        with self.assertRaises(___):
+            obj.method.cherries = 3
 
     def test_setting_attributes_on_methods_by_accessing_the_inner_function(self):
         obj = Class()
@@ -51,7 +56,8 @@ class AboutMethodBindings(Koan):
 
     def test_inner_functions_are_unbound(self):
         function2.get_fruit = function
-        with self.assertRaises(___): cls = function2.get_fruit.__self__
+        with self.assertRaises(___):
+            cls = function2.get_fruit.__self__
 
     # ------------------------------------------------------------------
 
@@ -85,6 +91,5 @@ class AboutMethodBindings(Koan):
 
     def test_set_descriptor_changes_behavior_of_attribute_assignment(self):
         self.assertEqual(None, self.color.choice)
-        self.color = 'purple'
+        self.color = "purple"
         self.assertEqual(__, self.color.choice)
-
