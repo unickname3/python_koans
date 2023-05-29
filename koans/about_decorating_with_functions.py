@@ -15,7 +15,7 @@ class AboutDecoratingWithFunctions(Koan):
 
     def test_decorators_can_modify_a_function(self):
         self.assertRegex(self.mediocre_song(), "submarine")
-        self.assertEqual("COWBELL BABY", self.mediocre_song.wow_factor)
+        self.assertEqual("COWBELL BABY!", self.mediocre_song.wow_factor)
 
     # ------------------------------------------------------------------
 
@@ -30,4 +30,4 @@ class AboutDecoratingWithFunctions(Koan):
         return name
 
     def test_decorators_can_change_a_function_output(self):
-        self.assertEqual("<llama>", self.render_tag("llama"))
+        self.assertEqual("<llama/>", self.render_tag("llama"))
