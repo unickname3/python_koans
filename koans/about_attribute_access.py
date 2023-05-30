@@ -7,20 +7,22 @@
 
 from runner.koan import *
 
-class AboutAttributeAccess(Koan):
 
+class AboutAttributeAccess(Koan):
     class TypicalObject:
         pass
 
     def test_calling_undefined_functions_normally_results_in_errors(self):
         typical = self.TypicalObject()
 
-        with self.assertRaises(___): typical.foobar()
+        with self.assertRaises(AttributeError):
+            typical.foobar()
 
     def test_calling_getattribute_causes_an_attribute_error(self):
         typical = self.TypicalObject()
 
-        with self.assertRaises(___): typical.__getattribute__('foobar')
+        with self.assertRaises(KeyError):
+            typical.__getattribute__("foobar")
 
         # THINK ABOUT IT:
         #
@@ -41,7 +43,7 @@ class AboutAttributeAccess(Koan):
     def test_intercepting_return_values_can_disrupt_the_call_chain(self):
         catcher = self.CatchAllAttributeReads()
 
-        self.assertRegex(catcher.foobaz, __) # This is fine
+        self.assertRegex(catcher.foobaz, __)  # This is fine
 
         try:
             catcher.foobaz(1)
@@ -59,7 +61,7 @@ class AboutAttributeAccess(Koan):
     def test_changes_to_the_getattribute_implementation_affects_getattr_function(self):
         catcher = self.CatchAllAttributeReads()
 
-        self.assertRegex(getattr(catcher, 'any_attribute'), __)
+        self.assertRegex(getattr(catcher, "any_attribute"), __)
 
     # ------------------------------------------------------------------
 
@@ -79,7 +81,8 @@ class AboutAttributeAccess(Koan):
     def test_non_foo_messages_are_treated_normally(self):
         catcher = self.WellBehavedFooCatcher()
 
-        with self.assertRaises(___): catcher.normal_undefined_attribute
+        with self.assertRaises(___):
+            catcher.normal_undefined_attribute
 
     # ------------------------------------------------------------------
 
@@ -97,7 +100,7 @@ class AboutAttributeAccess(Koan):
             global stack_depth
             stack_depth += 1
 
-            if stack_depth<=10: # to prevent a stack overflow
+            if stack_depth <= 10:  # to prevent a stack overflow
                 self.no_of_getattribute_calls += 1
                 # Oops! We just accessed an attribute (no_of_getattribute_calls)
                 # Guess what happens when self.no_of_getattribute_calls is
@@ -119,7 +122,8 @@ class AboutAttributeAccess(Koan):
     # ------------------------------------------------------------------
 
     class MinimalCatcher:
-        class DuffObject: pass
+        class DuffObject:
+            pass
 
         def __init__(self):
             self.no_of_getattr_calls = 0
@@ -142,8 +146,7 @@ class AboutAttributeAccess(Koan):
         catcher.purple_flamingos()
         catcher.free_pie()
 
-        self.assertEqual(__,
-            type(catcher.give_me_duff_or_give_me_death()).__name__)
+        self.assertEqual(__, type(catcher.give_me_duff_or_give_me_death()).__name__)
 
         self.assertEqual(__, catcher.no_of_getattr_calls)
 
@@ -151,11 +154,11 @@ class AboutAttributeAccess(Koan):
 
     class PossessiveSetter(object):
         def __setattr__(self, attr_name, value):
-            new_attr_name =  attr_name
+            new_attr_name = attr_name
 
-            if attr_name[-5:] == 'comic':
+            if attr_name[-5:] == "comic":
                 new_attr_name = "my_" + new_attr_name
-            elif attr_name[-3:] == 'pie':
+            elif attr_name[-3:] == "pie":
                 new_attr_name = "a_" + new_attr_name
 
             object.__setattr__(self, new_attr_name, value)
@@ -163,8 +166,8 @@ class AboutAttributeAccess(Koan):
     def test_setattr_intercepts_attribute_assignments(self):
         fanboy = self.PossessiveSetter()
 
-        fanboy.comic = 'The Laminator, issue #1'
-        fanboy.pie = 'blueberry'
+        fanboy.comic = "The Laminator, issue #1"
+        fanboy.pie = "blueberry"
 
         self.assertEqual(__, fanboy.a_pie)
 
@@ -172,8 +175,8 @@ class AboutAttributeAccess(Koan):
         # NOTE: Change the prefix to make this next assert pass
         #
 
-        prefix = '__'
-        self.assertEqual("The Laminator, issue #1", getattr(fanboy, prefix + '_comic'))
+        prefix = "__"
+        self.assertEqual("The Laminator, issue #1", getattr(fanboy, prefix + "_comic"))
 
     # ------------------------------------------------------------------
 
@@ -183,9 +186,9 @@ class AboutAttributeAccess(Koan):
             self._num_of_private_coconuts = 2
 
         def __setattr__(self, attr_name, value):
-            new_attr_name =  attr_name
+            new_attr_name = attr_name
 
-            if attr_name[0] != '_':
+            if attr_name[0] != "_":
                 new_attr_name = "altered_" + new_attr_name
 
             object.__setattr__(self, new_attr_name, value)
