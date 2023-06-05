@@ -153,9 +153,11 @@ class AboutAttributeAccess(Koan):
         catcher.purple_flamingos()
         catcher.free_pie()
 
-        self.assertEqual(__, type(catcher.give_me_duff_or_give_me_death()).__name__)
+        self.assertEqual(
+            "DuffObject", type(catcher.give_me_duff_or_give_me_death()).__name__
+        )
 
-        self.assertEqual(__, catcher.no_of_getattr_calls)
+        self.assertEqual(2, catcher.no_of_getattr_calls)
 
     # ------------------------------------------------------------------
 
