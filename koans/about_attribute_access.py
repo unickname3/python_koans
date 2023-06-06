@@ -157,7 +157,7 @@ class AboutAttributeAccess(Koan):
             "DuffObject", type(catcher.give_me_duff_or_give_me_death()).__name__
         )
 
-        self.assertEqual(2, catcher.no_of_getattr_calls)
+        self.assertEqual(3, catcher.no_of_getattr_calls)
 
     # ------------------------------------------------------------------
 
@@ -178,7 +178,7 @@ class AboutAttributeAccess(Koan):
         fanboy.comic = "The Laminator, issue #1"
         fanboy.pie = "blueberry"
 
-        self.assertEqual(__, fanboy.a_pie)
+        self.assertEqual("blueberry", fanboy.a_pie)
 
         #
         # NOTE: Change the prefix to make this next assert pass
